@@ -22,11 +22,10 @@ class UserDetailController < ApplicationController
 
   def tweets
     client = twitter_client_config
-    @tweets = client.user_timeline(@user_name, {:count => 10})
-    if @tweets.blank?
-      ['No tweets found for user']
-    else
-      @tweets
+    @tweets = begin
+      client.user_timeline(@user_name, {:count => 10})
+    rescue Exception => e
+      'No tweets found for user !!!'
     end
   end
 
@@ -34,7 +33,6 @@ class UserDetailController < ApplicationController
     @github_info = begin
       Octokit.user @user_name
     rescue Exception => e
-      puts e.message
       'Github account information not found !!!'
     end
   end
@@ -43,7 +41,6 @@ class UserDetailController < ApplicationController
     @rubygems_info = begin
       Gems.gems(@user_name).collect!{|gem| "#{gem['name']} ~> #{gem['version']}"}
     rescue Exception => e
-      puts e.message
       'Rubygems.org account information not found !!!'
     end
   end

@@ -1,11 +1,14 @@
 module UserDetailHelper
 
   def display_tweets
-    tweets = ''
-    @tweets.each do |tweet|
-      tweets << "#{tweet.user.screen_name} : #{tweet.text}" + tag('br')
+    if @tweets.is_a?(String) || @tweets.blank?
+      @tweets = @tweets.blank? ? 'No tweets found for user !!!' : @tweets
+      content_tag(:i, @tweets)
+    else
+      tweets = ''
+      @tweets.each { |tweet| tweets << "#{content_tag(:i, '@' + tweet.user.screen_name)} : #{tweet.text}" + tag('br') }
+      tweets.html_safe
     end
-    tweets.html_safe
   end
 
   def display_github_info
@@ -23,9 +26,7 @@ module UserDetailHelper
       content_tag(:i, @rubygems_info)
     else
       gems = ''
-      @rubygems_info.each do |gem|
-        gems << gem + tag('br')
-      end
+      @rubygems_info.each { |gem| gems << gem + tag('br') }
       gems.html_safe
     end
   end
