@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>GrtUserInfo</title>
-  <%= stylesheet_link_tag    "application" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+    <head>
+          <title>Github, RubyGems & Twitter User Info</title>
+          <%= stylesheet_link_tag    "application", :media => "all" %>
+          <%= javascript_include_tag "application" %>
+          <%= csrf_meta_tags %>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
+          <%= csrf_meta_tags %>
+    </head>
+    <body style="padding-top: 60px">
+        <div class="navbar navbar-fixed-top">
+          <div class="navbar-inner">
+            <div class="container">
+              <%= link_to 'GitHub, RubyGems & Twitter User Info', :root, :class => 'brand' %>
+            </div>
+           </div>
+        </div>
+        <div class="container">
+              <div class="row">
+                    <div class="span9"><%= yield %></div>
+              </div>
+        </div>
+    </body>
 </html>

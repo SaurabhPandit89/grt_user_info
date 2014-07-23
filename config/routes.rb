@@ -1,4 +1,11 @@
 GrtUserInfo::Application.routes.draw do
+
+  root :to => 'user_detail#new'
+
+  get 'user_detail/new'
+
+  post 'user_detail/details'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

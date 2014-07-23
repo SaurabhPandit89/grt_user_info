@@ -1,0 +1,31 @@
+<div class="page-header">
+  <h1>
+    <small>Details of </small><%= @user_name%>
+    <div class="pull-right">
+      <%= link_to 'Back', root_path, :class => 'btn btn-primary' %>
+    </div>
+    <div class="btn-group">
+      <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+        Export to<span class="caret"></span>
+      </a>
+      <ul class="dropdown-menu">
+         <li><a href="#">PDF</a></li>
+        <li><a href="#">Doc</a></li>
+      </ul>
+    </div>
+  </h1>
+</div>
+<table class="table table-striped">
+<tr>
+  <td><b>Tweets from twitter</b></td>
+  <td><%= display_tweets %></td>
+</tr>
+<tr>
+  <td><b>Details from github.com</b></td>
+  <td><%= display_github_info %></td>
+</tr>
+<tr>
+  <td><b>Details from rubygems.org</b></td>
+  <td><%= display_rubygems_info %></td>
+</tr>
+</table>
