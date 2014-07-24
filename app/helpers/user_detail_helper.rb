@@ -22,7 +22,8 @@ module UserDetailHelper
   end
 
   def display_rubygems_info
-    if @rubygems_info.is_a?(String)
+    if @rubygems_info.is_a?(String) || @rubygems_info.blank?
+      @rubygems_info = @rubygems_info.blank? ? 'No Gems found for user !!!' : @rubygems_info
       content_tag(:i, @rubygems_info)
     else
       gems = ''

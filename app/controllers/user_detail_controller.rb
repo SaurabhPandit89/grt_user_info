@@ -33,7 +33,7 @@ class UserDetailController < ApplicationController
       client = twitter_client_config
       client.user_timeline(@user_name, {:count => 10})
     rescue Exception => e
-      'No tweets found for user !!!'
+      'Twitter account not found !!!'
     end
   end
 
