@@ -1,3 +1,15 @@
+# Following controller contains the methods to fetch and export the user details
+# from following websites :
+# 1. Twitter
+# 2. Github
+# 3. RubyGem
+
+# This controller only contains three actions :
+# 1. new : used just to render the home/root page.
+# 2. details : used to fetch details form 3 websites and display it on view.
+# 3. export : used to export the data displayed by the details action to PDF/DOC.
+# Rest of the methods are private methods, they will be used by the above actions internally.
+
 class UserDetailController < ApplicationController
 
   before_filter :set_user_name, :except => [:new]
@@ -5,10 +17,12 @@ class UserDetailController < ApplicationController
   def new
   end
 
+  # Method to fetch & Display User infos
   def details
     fetch_infos
   end
 
+  # Method to export HTML to PDF & DOC
   def export
     fetch_infos
     mime_type = params[:mime_type]
@@ -19,8 +33,11 @@ class UserDetailController < ApplicationController
               :disposition => 'attachment')
   end
 
+  # Methods defined here as private are only for internal use
+
   private
 
+  # Creates a twitter client to communicate with Twitter API gem
   def twitter_client_config
     Twitter::REST::Client.new do |config|
       config.consumer_key    = 'VxIibKGbLjn8pPMm7R5XPB3Iu'
@@ -28,6 +45,7 @@ class UserDetailController < ApplicationController
     end
   end
 
+  # Fetches tweets from the user time line
   def tweets
     @tweets = begin
       client = twitter_client_config
@@ -37,6 +55,12 @@ class UserDetailController < ApplicationController
     end
   end
 
+  # Fetches Github info
+  # Github provides following information about the users :
+  # 1. Date of Joining
+  # 2. Number of public repositories
+  # 3. Name of all the public repositories
+
   def github_info
     @github_info = begin
       Octokit.user @user_name
@@ -44,6 +68,10 @@ class UserDetailController < ApplicationController
       'Github account information not found !!!'
     end
   end
+
+  # Fetches details for gems created by user
+  # RubyGems provides following information about the users:
+  # 1. Name of all the Gems created by the user
 
   def rubygems_info
     @rubygems_info = begin
@@ -53,12 +81,14 @@ class UserDetailController < ApplicationController
     end
   end
 
+  # Fetches combined information from Twitter, Github & RubyGems
   def fetch_infos
     tweets
     github_info
     rubygems_info
   end
 
+  # filter to set user name
   def set_user_name
     @user_name = params[:user_name]
   end

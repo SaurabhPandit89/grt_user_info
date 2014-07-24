@@ -1,3 +1,9 @@
+# This module is created to keep the methods with VIEW's logic.
+# Operation required to perform on the data before displaying
+# on the VIEWS are kept in the methods defined here
+
+# By doing this, it will keep the views simple.
+
 module UserDetailHelper
 
   def display_tweets

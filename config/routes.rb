@@ -1,11 +1,13 @@
 GrtUserInfo::Application.routes.draw do
 
+  # Home page is set below
   root :to => 'user_detail#new'
 
+  # created custom routes instead of using RESTFUL
+  # as we did not have usual controller actions like new, index, show, create, edit, update & delete
+
   get 'user_detail/new'
-
   post 'user_detail/details'
-
   get 'user_detail/export/:mime_type', to: 'user_detail#export', as: 'export'
 
   # The priority is based upon order of creation:
