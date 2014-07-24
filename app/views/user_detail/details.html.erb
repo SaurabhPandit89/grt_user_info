@@ -9,8 +9,8 @@
         Export to<span class="caret"></span>
       </a>
       <ul class="dropdown-menu">
-         <li><a href="#">PDF</a></li>
-        <li><a href="#">Doc</a></li>
+         <li><%= link_to 'PDF', export_path(:pdf, :user_name => @user_name)%></li>
+        <li><%= link_to 'Doc', export_path(:doc, :user_name => @user_name)%></li>
       </ul>
     </div>
   </h1>

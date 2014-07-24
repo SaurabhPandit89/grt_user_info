@@ -1,14 +1,22 @@
 class UserDetailController < ApplicationController
 
-  before_filter :set_user_name
+  before_filter :set_user_name, :except => [:new]
 
   def new
   end
 
   def details
-    tweets
-    github_info
-    rubygems_info
+    fetch_infos
+  end
+
+  def export
+    fetch_infos
+    mime_type = params[:mime_type]
+    html = render_to_string(:action => :export, :layout => 'export.html.erb')
+    data = mime_type == 'pdf' ? WickedPdf.new.pdf_from_string(html) : html
+    send_data(data,
+              :filename    => "#{@user_name}.#{mime_type}",
+              :disposition => 'attachment')
   end
 
   private
@@ -21,8 +29,8 @@ class UserDetailController < ApplicationController
   end
 
   def tweets
-    client = twitter_client_config
     @tweets = begin
+      client = twitter_client_config
       client.user_timeline(@user_name, {:count => 10})
     rescue Exception => e
       'No tweets found for user !!!'
@@ -43,6 +51,12 @@ class UserDetailController < ApplicationController
     rescue Exception => e
       'Rubygems.org account information not found !!!'
     end
+  end
+
+  def fetch_infos
+    tweets
+    github_info
+    rubygems_info
   end
 
   def set_user_name

@@ -6,6 +6,8 @@ GrtUserInfo::Application.routes.draw do
 
   post 'user_detail/details'
 
+  get 'user_detail/export/:mime_type', to: 'user_detail#export', as: 'export'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
