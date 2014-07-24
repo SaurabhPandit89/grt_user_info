@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-
+ruby '1.9.3'
 gem 'rails', '3.1.1'
 
 # Bundle edge Rails instead:
@@ -21,6 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'rails_12factor', group: :production
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
