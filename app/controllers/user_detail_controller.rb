@@ -15,8 +15,8 @@ class UserDetailController < ApplicationController
 
   def twitter_client_config
     Twitter::REST::Client.new do |config|
-      config.consumer_key    = '<consumer_key>'
-      config.consumer_secret = '<consumer_secret>'
+      config.consumer_key    = 'VxIibKGbLjn8pPMm7R5XPB3Iu'
+      config.consumer_secret = 'TWhxcssR8Sp8UAOB6vEduTToPpOuVowgpSMqxYABubrnBVrm0O'
     end
   end
 
