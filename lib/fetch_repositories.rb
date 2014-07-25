@@ -6,7 +6,7 @@ module FetchRepositories
     request = Net::HTTP::Get.new(uri.request_uri)
     http.use_ssl = true
     response = begin
-      http.request('request')
+      http.request(request)
     rescue Exception => e
       e.message
     end
