@@ -34,7 +34,7 @@ module APIMethods
     rescue Exception => e
       'Github account information not found !!!'
     end
-    get_repositories_name
+    #get_repositories_name
   end
 
   def fetch_repositories
