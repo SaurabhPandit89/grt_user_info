@@ -38,7 +38,7 @@ module APIMethods
     rescue Exception => e
       'Github account information not found !!!'
     end
-    get_repositories_name
+    get_repositories_name unless @github_info.is_a?(String)
   end
 
   def get_repositories_name
