@@ -3,7 +3,11 @@
 # 2. Twitter
 # 3. RubyGems
 
+require './lib/fetch_repositories'
+
 module APIMethods
+
+  include FetchRepositories
 
   # Creates a twitter client to communicate with Twitter API gem
   def twitter_client_config
@@ -34,30 +38,13 @@ module APIMethods
     rescue Exception => e
       'Github account information not found !!!'
     end
-    #get_repositories_name
-  end
-
-  def fetch_repositories
-    unless @github_info.is_a?(String) || @github_info.blank?
-      uri = URI.parse(@github_info[:repos_url])
-      http = Net::HTTP.new(uri.host, uri.port)
-      request = Net::HTTP::Get.new(uri.request_uri)
-      http.use_ssl = true
-      @response = begin
-        http.request(request)
-      rescue Exception => e
-        e.message
-      end
-    end
+    get_repositories_name
   end
 
   def get_repositories_name
-    fetch_repositories
+    repositories = get_repositories(@github_info[:repos_url])
     @repositories_name = []
-    if @response.is_a?(Net::HTTPOK)
-      repositories = JSON.parse(@response.body)
-      repositories.each {|repository| @repositories_name << repository['name']}
-    end
+    repositories.each {|repository| @repositories_name << repository['name']} unless repositories.blank?
     @repositories_name
   end
 
