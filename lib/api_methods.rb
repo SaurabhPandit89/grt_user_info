@@ -26,8 +26,7 @@ module APIMethods
   # Fetches Github info
   # Github provides following information about the users :
   # 1. Date of Joining
-  # 2. Number of public repositories
-  # 3. Name of all the public repositories
+  # 2. Name of all the public repositories.
 
   def github_info
     @github_info = begin
@@ -35,6 +34,31 @@ module APIMethods
     rescue Exception => e
       'Github account information not found !!!'
     end
+    get_repositories_name
+  end
+
+  def fetch_repositories
+    unless @github_info.is_a?(String) || @github_info.blank?
+      uri = URI.parse(@github_info[:repos_url])
+      http = Net::HTTP.new(uri.host, uri.port)
+      request = Net::HTTP::Get.new(uri.request_uri)
+      http.use_ssl = true
+      @response = begin
+        http.request(request)
+      rescue Exception => e
+        e.message
+      end
+    end
+  end
+
+  def get_repositories_name
+    fetch_repositories
+    @repositories_name = []
+    if @response.is_a?(Net::HTTPOK)
+      repositories = JSON.parse(@response.body)
+      repositories.each {|repository| @repositories_name << repository['name']}
+    end
+    @repositories_name
   end
 
   # Fetches details for gems created by user

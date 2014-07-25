@@ -21,9 +21,15 @@ module UserDetailHelper
     if @github_info.is_a?(String)
       content_tag(:i, @github_info)
     else
-      ("User Name : #{@github_info[:login]}" + tag('br') +
-          "Date of Joining : #{@github_info[:created_at].to_date}" + tag('br') +
-          "Public repositories : #{@github_info[:public_repos]}").html_safe
+      info_details = "User Name : #{@github_info[:login]}" + tag('br') + "Date of Joining : #{@github_info[:created_at].to_date}"
+      unless @repositories_name.blank?
+        names = ''
+        @repositories_name.each {|name| names << "#{name}" + tag('br') }
+        info_details << tag('br') + tag('br') +
+            "#{content_tag(:b, content_tag(:u, 'Repositories Name'))}".html_safe +
+            tag('br') + names.html_safe
+      end
+      info_details.html_safe
     end
   end
 
