@@ -14,13 +14,13 @@ class UserDetailControllerTest < ActionController::TestCase
   end
 
   test 'should get details' do
-    get :details, :user_name => 'sferik'
+    post :details, :user_name => 'sferik'
     assert_response :success
     assert_equal 'sferik', assigns('user_name')
   end
 
   test 'details should render correct template and layout' do
-    get :details
+    post :details
     assert_template :details
     assert_template layout: 'application'
   end
