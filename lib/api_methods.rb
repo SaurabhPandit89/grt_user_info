@@ -42,7 +42,7 @@ module APIMethods
   end
 
   def get_repositories_name
-    repositories = get_repositories(@github_info[:repos_url])
+    repositories = get_repositories(@github_info[:repos_url])  #called from lib/fetch_repositories.rb:3
     @repositories_name = []
     repositories.each {|repository| @repositories_name << repository['name']} unless repositories.blank?
     @repositories_name

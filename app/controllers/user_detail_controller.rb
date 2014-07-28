@@ -24,21 +24,21 @@ class UserDetailController < ApplicationController
 
   # Method to fetch & Display User infos
   def details
-    fetch_infos
+    fetch_infos #called from lib/api_methods.rb:64
   end
 
   # Method to export HTML to PDF & DOC
   def export
-    fetch_infos
+    fetch_infos #called from lib/api_methods.rb:64
     mime_type = params[:mime_type]
     html = render_to_string(:action => :export, :layout => 'export.html.erb')
-    data = mime_type == 'pdf' ? render_to_pdf(html) : html
+    data = mime_type == 'pdf' ? render_to_pdf(html) : html  #render_to_pdf called from lib/pdf.rb:6
     send_data(data,
               :filename    => "#{@user_name}.#{mime_type}",
               :disposition => 'attachment')
   end
 
-  # Methods defined here as private are only for internal use
+  # Methods defined here as private and are only for internal use
 
   private
 
